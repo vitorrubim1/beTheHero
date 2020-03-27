@@ -15,7 +15,7 @@ routes.post('/sessions', SessionController.create);
 
                     // ROTAS DAS ONGS
 //PARA LISTAR AS ONGS DO BD
-routes.get('/ongs', OngController.index );
+routes.get('/ongs', OngController.index);
 //CREATE DAS ONGS
 routes.post('/ongs', OngController.create);
 
