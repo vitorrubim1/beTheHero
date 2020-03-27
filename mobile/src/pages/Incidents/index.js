@@ -30,9 +30,11 @@ export default function Incidents(){
 
         setLoading(true);
 
-        const response = await api.get('incidents'); //PEGANDO DA API, A ROTA PASSADA NO PARAMETRO
+        const response = await api.get('incidents', {
+            params: { page }
+        }); //PEGANDO DA API, A ROTA PASSADA NO PARAMETRO, E O NUMERO DA PAG
 
-        setIncidents(response.data); //PEGANDO DADOS E PONDO NO setIncidents
+        setIncidents([...incidents, ...response.data]); //PEGANDO DADOS E PONDO NO setIncidents
         setTotal(response.headers['x-total-count']); //DENTRO DO HEADER PQ O TOTAL VEM DENTRO DO header
         setPage(page + 1);
         setLoading(false);
@@ -68,12 +70,15 @@ export default function Incidents(){
                 renderItem: FUNÇÃO RESPONSAVEL POR RENDERIZAR CADA UM DOS ITENS, QUE RETORNA JSX
                 keyExtractor: RECEBE CADA UM DOS INCIDENTS E RETORNA UMA INFORMAÇÃO UNICA QUE EXISTE EM CADA UM DOS CASOS
                 showsVerticalScrollIndicator: PARA TIRAR O SCROLL DE NAVEGAÇÃO
+                onEndReached: FUNÇAO P/ QUADNO O USER CHEGA NO FINAL DA LISTA
             */}
             <FlatList 
                 data={incidents} //PEGO ESSE incidents, do useState 
                 style={styles.incidentList}
                 keyExtractor={incident => String(incident.id)} //CHAVE DE CADA UM DOS INCIDENTS
                 showsVerticalScrollIndicator={false}
+                onEndReached={loadIncidents}
+                onEndReachedThreshold={0.2}
                 renderItem={({ item: incident }) => ( //item = incident
                     <View style={styles.incident}>
                         <Text style={[styles.incidentProperty, {marginTop:0}]}>ONG:</Text>
