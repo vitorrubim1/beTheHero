@@ -11,4 +11,4 @@ app.use(routes); //USANDO AS ROTAS
 app.use(errors());
 
 
-app.listen(3333);
+app.listen(process.env.PORT || 3333);
