@@ -5,7 +5,7 @@ const { errors } = require ('celebrate'); //PARA EVITAR ERRO 500, UM ERRO RUIM
 
 const app = express();
 
-app.use(cors()); //MÓDULO DE SEGURANÇA
+app.use(cors()); //MÓDULO DE SEGURANÇA, DEIXANDO EM O METODO EM BRANCO PERMITO TODOS CLIENTES 
 app.use(express.json());
 app.use(routes); //USANDO AS ROTAS
 app.use(errors());
